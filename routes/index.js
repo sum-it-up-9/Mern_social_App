@@ -8,7 +8,9 @@ const homeController=require('../controllers/home_controller');
 console.log("router's index file loaded");
 
 router.get('/',homeController.home);
-router.use('/profile',require('./users'));
+
+//all the routes which is after /user goes below e.g. /user/signup
+router.use('/user',require('./users'));
 
 //for any further routes,access from here
 //router.use('/routerName',require('./routerfilename));
