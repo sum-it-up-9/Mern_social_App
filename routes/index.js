@@ -11,6 +11,8 @@ router.get('/',homeController.home);
 
 //all the routes which is after /user goes below e.g. /user/signup
 router.use('/user',require('./users'));
+router.use('/posts',require('./posts'));
+router.use('/comments',require('./comments'));
 
 //for any further routes,access from here
 //router.use('/routerName',require('./routerfilename));

@@ -8,6 +8,25 @@
     </head>
 
     <body>
+        <ul>
+            <% if (locals.user){ %>
+                <li><%= user.name %></li>
+                <a href="/user/profile">Profile</a>
+                <li>
+                    <a href="/user/sign-out">Sign Out</a>
+                </li>
+            <% }else{ %>
+                <li>
+                    <a href="/user/sign-in">Sign In</a>
+                </li>
+                <li>
+                    <a href="/user/sign-up">Sign Up</a>
+                </li>
+                
+            <% } %>        
+        </ul>
+        
+
 
         <div> this is header</div> 
         <%- body %>
