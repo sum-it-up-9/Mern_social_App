@@ -39,7 +39,7 @@ module.exports.create=function(req,res){
                     return
                 }
                 console.log('user created');
-                return res.redirect('/users/sign-in');        
+                return res.redirect('user/sign-in');        
         })}
         else{
             return res.redirect('back');

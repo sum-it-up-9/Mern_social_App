@@ -1,57 +1,43 @@
-<h1>Social</h1>
+<link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/chat_box.css">
 
-<section id="feed-posts">
-    <h4>Posts</h4>
-    <% if(locals.user) { %>
-    <form action="/posts/create" id="new-post-form" method="POST">
-        <textarea name="content" placeholder="Type Here ...." cols="30" rows="3" required></textarea>
-        <input type="submit" value="Post">
-    </form>
-    <% } %>
-
-    <div id="posts-list-container">
-        <ul>
-            <p>
-                <% for(post of posts){ %>
-                    <li>
-                        <%= post.content %>
-                    <br>
-                    <small>
-                        <%= post.user.name %>
-                    </small>
-                    </li>
-               
-                <div class="post-comments">
-                    <% if(locals.user) { %>
-                        <form action="/comments/create"  method="POST">
-                            <input type="text" name="content" placeholder="Type Here to add comment" required>
-                            <input type="hidden" name="post" value="<%= post._id %>">
-                            <input type="submit" value="Add comment">
-                        </form>
-                    <%} %>
-
-                    <div class="post-comments-list">
-                        <ul id="post-comments-<%= post._id %>">
-                            <% for (comment of post.comments){%>
-                            <p>
-                                <%= comment.content %>
-                                <br>
-                                <small>
-                                    <%= comment.user.name %>
-                                </small>
-                            </p>
-                            <%} %> 
-                        </ul>
-                    </div>
+<div id="home-container">
+    <section id="feed-posts">
+        <h4>Posts</h4>
+        <% if(locals.user) { %>
+        <form action="/posts/create" id="new-post-form" method="POST">
+            <textarea name="content" placeholder="Type Here ...." cols="30" rows="3" required></textarea>
+            <input type="submit" value="Post">
+        </form>
+        <% } %>
     
-                </div>
-
-
+        <div id="posts-list-container">
+            <ul>
+                <% for(post of posts){ %>
+                        
+                    <%- include('_post') -%>
+                        
                 <%} %>
-            </p>
+            </ul>
+        </div>
+    </section>
+   
 
-            
-           
-        </ul>
-    </div>
-</section>
+
+    <%- include('_chat_box') -%>
+</div>
+
+
+<!-- importing this script for creating the comments -Ajax -->
+<script src="/js/home_post_comments.js" ></script>
+<script src="/js/home_posts.js"></script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+<script src="/js/chat_engine.js"></script>
+<% if (locals.user){ %>
+<script>
+    new ChatEngine('user-chat-box', '<%= locals.user.email %>')
+</script>
+<% } %>
